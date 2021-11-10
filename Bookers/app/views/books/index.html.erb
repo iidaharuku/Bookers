@@ -1,0 +1,39 @@
+<div class="index-box">
+  <%= notice %>
+  <h2>Books</h2>
+　<table >
+　　<tr>
+　　　<th>Title</th>
+　　　<th>Body</th>
+　　</tr>
+　　<% @books.each do |book| %>
+　　  <tr>
+　　　  <td><%= book.title %></td>
+　　  　<td class=blog-body><%= book.body %></td>
+　　  　<td class="blog-link">
+　　  　  <li><%= link_to "show", book_path(book.id) %></li>
+          <li class="blog-list"><%= link_to "edit", edit_book_path(book.id) %></li>
+          <li><%= link_to "destroy", book_path(book.id), method: :delete %></li>
+        </td>
+   　　</tr>
+    <% end %>
+  </table>  
+  <div class=form>
+    <h3>新規投稿</h3>
+    <% if @book.errors.any? %>
+      <%= @book.errors.count %> error prohibited this book from being saved
+      <div>
+        <% @book.errors.full_messages.each do |message| %>
+          <%= message %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= form_with model:@book, local:true do |f| %>
+      <h4>Title</h4>
+      <%= f.text_field :title %>
+      <h4>Body</h4>
+      <%= f.text_field :body %>
+      <%= f.submit 'Create Book' %>
+    <% end %>
+  </div>
+</div>
